@@ -38,28 +38,28 @@ void Networking::removeSocket(SOCKET socket)
 }
 
 void Networking::login(std::string username, std::string password, NetworkingCallback callback) const {
-    MessengerCallback lamdaCallback = [callback] (std::shared_ptr<Message> message) {
-        if (callback) {
-            callback(true);
-        }
-        else {
-            std::cerr << "No callback provided";
-        }
-    };
-    _messenger.sendLogin(username, password, lamdaCallback);
+//    MessengerCallback lamdaCallback = [callback] (std::shared_ptr<Message> message) {
+//        if (callback) {
+//            callback(true);
+//        }
+//        else {
+//            std::cerr << "No callback provided";
+//        }
+//    };
+//    _messenger.sendLogin(username, password, lamdaCallback);
 }
 
 void Networking::loginResponse(std::string username, int userId, NetworkingCallback callback) const
 {
-    MessengerCallback lamdaCallback = [callback] (std::shared_ptr<Message> message) {
-        if (callback) {
-            callback(true);
-        }
-        else {
-            std::cerr << "No callback provided";
-        }
-    };
-    _messenger.sendLoginResponse(username, userId, lamdaCallback);
+//    MessengerCallback lamdaCallback = [callback] (std::shared_ptr<Message> message) {
+//        if (callback) {
+//            callback(true);
+//        }
+//        else {
+//            std::cerr << "No callback provided";
+//        }
+//    };
+//    _messenger.sendLoginResponse(username, userId, lamdaCallback);
 }
 
 
@@ -69,51 +69,51 @@ void Networking::signup(std::string username, std::string password, NetworkingCa
 
 
 void Networking::privateMessage(std::string message, std::unordered_set<int> recipientIds, NetworkingCallback callback) const {
-    MessengerCallback lamdaCallback = [callback] (std::shared_ptr<Message> message) {
-        if (callback) {
-            callback(true);
-        }
-        else {
-            std::cerr << "No callback provided";
-        }
-    };
-    _messenger.sendPrivateMessage(message, *recipientIds.begin(), lamdaCallback);
+//    MessengerCallback lamdaCallback = [callback] (std::shared_ptr<Message> message) {
+//        if (callback) {
+//            callback(true);
+//        }
+//        else {
+//            std::cerr << "No callback provided";
+//        }
+//    };
+//    _messenger.sendPrivateMessage(message, *recipientIds.begin(), lamdaCallback);
 }
 
 void Networking::privateMessage(PrivateMessage message, NetworkingCallback callback)
 {
-    _messenger.sendPrivateMessage(message, nullptr);
+//    _messenger.sendPrivateMessage(message, nullptr);
 }
 
 
 void Networking::groupMessage(std::string message, std::unordered_set<int> recipientIds, NetworkingCallback callback) const {
-    MessengerCallback lamdaCallback = [callback] (std::shared_ptr<Message> message) {
-        if (callback) {
-            callback(true);
-        }
-        else {
-            std::cerr << "No callback provided";
-        }
-    };
-    _messenger.sendGroupMessage(message, recipientIds, lamdaCallback);
+//    MessengerCallback lamdaCallback = [callback] (std::shared_ptr<Message> message) {
+//        if (callback) {
+//            callback(true);
+//        }
+//        else {
+//            std::cerr << "No callback provided";
+//        }
+//    };
+//    _messenger.sendGroupMessage(message, recipientIds, lamdaCallback);
 }
 
 
 void Networking::groupMessage(GroupMessage message, Group group, NetworkingCallback callback)
 {
-    MessengerCallback lamdaCallback = [callback] (std::shared_ptr<Message> message) {
-        if (callback) {
-            callback(true);
-        }
-        else {
-            std::cerr << "No callback provided";
-        }
-    };
+//    MessengerCallback lamdaCallback = [callback] (std::shared_ptr<Message> message) {
+//        if (callback) {
+//            callback(true);
+//        }
+//        else {
+//            std::cerr << "No callback provided";
+//        }
+//    };
 
-    _messenger.sendGroupMessage(message, group, lamdaCallback);
+//    _messenger.sendGroupMessage(message, group, lamdaCallback);
 }
 
-void Networking::sumMessage(std::vector<int> elements, ArithmeticsCallback callback)
+void Networking::functionMessage(std::string serializedMessage, ArithmeticsCallback callback)
 {
 
 }

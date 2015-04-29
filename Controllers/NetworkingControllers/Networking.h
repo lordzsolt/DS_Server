@@ -32,7 +32,7 @@ public:
     void privateMessage(PrivateMessage message, NetworkingCallback callback);
     void groupMessage(std::string message, std::unordered_set<int> recipientIds, NetworkingCallback callback) const;
     void groupMessage(GroupMessage message, Group group, NetworkingCallback callback);
-    void sumMessage(std::vector<int> elements, ArithmeticsCallback callback);
+    void functionMessage(std::string serializedMessage, ArithmeticsCallback callback);
 
 private:
     Networking(NotificationCallback callback, ConnectionCallback connectionCallback, std::unordered_map<int, Connection>* connections, nullptr_t t);
