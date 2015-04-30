@@ -15,17 +15,18 @@ shared_ptr<Message> MessageDeserializer::deserializeMessage(std::string header, 
     MessageType messageType = static_cast<MessageType>(type);
     switch (messageType) {
         case MessageType::Log_In: {
-            LoginMessage loginMessage(index, static_cast<MessageTag>(tag), body);
-            return make_shared<LoginMessage>(loginMessage);
+//            LoginMessage loginMessage(index, static_cast<MessageTag>(tag), body);
+//            return make_shared<LoginMessage>(loginMessage);
+            break;
         }
         case MessageType::Register: {
-
+            break;
         }
         case MessageType::Private_Message: {
-
+            break;
         }
         case MessageType::Group_Message: {
-
+            break;
         }
         case MessageType::Function_Call: {
 //            ValueType type = *reinterpret_cast<const ValueType*>(body.data());
@@ -38,6 +39,7 @@ shared_ptr<Message> MessageDeserializer::deserializeMessage(std::string header, 
 //                SumMessage<int> message(index, body);
 //                return make_shared<SumMessage<int>>(message);
 //            }
+            break;
         }
         default: {
             std::cout << "Unknown message type: " << (int)messageType;

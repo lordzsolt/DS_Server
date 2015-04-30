@@ -25,13 +25,13 @@ public:
     void listenToSocket(SOCKET socket);
     void removeSocket(SOCKET socket);
 
-    void login(std::string username, std::string password, NetworkingCallback callback) const;
-    void loginResponse(std::string username, int userId, NetworkingCallback callback) const;
-    void signup(std::string username, std::string password, NetworkingCallback callback) const;
-    void privateMessage(std::string message, std::unordered_set<int> recipientIds, NetworkingCallback callback) const;
-    void privateMessage(PrivateMessage message, NetworkingCallback callback);
-    void groupMessage(std::string message, std::unordered_set<int> recipientIds, NetworkingCallback callback) const;
-    void groupMessage(GroupMessage message, Group group, NetworkingCallback callback);
+//    void login(std::string username, std::string password, NetworkingCallback callback) const;
+//    void loginResponse(std::string username, int userId, NetworkingCallback callback) const;
+//    void signup(std::string username, std::string password, NetworkingCallback callback) const;
+//    void privateMessage(std::string message, std::unordered_set<int> recipientIds, NetworkingCallback callback) const;
+//    void privateMessage(PrivateMessage message, NetworkingCallback callback);
+//    void groupMessage(std::string message, std::unordered_set<int> recipientIds, NetworkingCallback callback) const;
+//    void groupMessage(GroupMessage message, Group group, NetworkingCallback callback);
     void functionMessage(std::string serializedMessage, ArithmeticsCallback callback);
 
 private:

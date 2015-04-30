@@ -17,18 +17,18 @@ void MessageHandler::handleMessage(Message *message)
 
     switch (message->type()) {
     case MessageType::Log_In: {
-        LoginMessage* loginMessage = dynamic_cast<LoginMessage*>(message);
-        handleLoginMessage(loginMessage);
+//        LoginMessage* loginMessage = dynamic_cast<LoginMessage*>(message);
+//        handleLoginMessage(loginMessage);
         break;
     }
     case MessageType::Private_Message: {
-        PrivateMessage* privateMessage = dynamic_cast<PrivateMessage*>(message);
-        handlePrivateMessage(privateMessage);
+//        PrivateMessage* privateMessage = dynamic_cast<PrivateMessage*>(message);
+//        handlePrivateMessage(privateMessage);
         break;
     }
     case MessageType::Group_Message: {
-        GroupMessage* groupMessage = dynamic_cast<GroupMessage*>(message);
-        handleGroupMessage(groupMessage);
+//        GroupMessage* groupMessage = dynamic_cast<GroupMessage*>(message);
+//        handleGroupMessage(groupMessage);
         break;
     }
 //    case MessageType::SumMessage: {
@@ -39,18 +39,18 @@ void MessageHandler::handleMessage(Message *message)
     }
 }
 
-void MessageHandler::handleLoginMessage(LoginMessage* message)
-{
-    std::cout << message->username();
-}
+//void MessageHandler::handleLoginMessage(LoginMessage* message)
+//{
+//    std::cout << message->username();
+//}
 
-void MessageHandler::handlePrivateMessage(PrivateMessage *message)
-{
-    _networking->privateMessage(*message, nullptr);
-}
+//void MessageHandler::handlePrivateMessage(PrivateMessage *message)
+//{
+//    _networking->privateMessage(*message, nullptr);
+//}
 
-void MessageHandler::handleGroupMessage(GroupMessage *message)
-{
-    auto itGroup = _groups->find(message->recipientId());
-    _networking->groupMessage(*message, itGroup->second, nullptr);
-}
+//void MessageHandler::handleGroupMessage(GroupMessage *message)
+//{
+//    auto itGroup = _groups->find(message->recipientId());
+//    _networking->groupMessage(*message, itGroup->second, nullptr);
+//}

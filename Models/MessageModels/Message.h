@@ -6,7 +6,7 @@
 
 class Message {
 public:
-    Message(MessageType const &type, int32_t index, MessageTag const &tag);
+    Message(MessageType const &type, MessageTag const &tag);
 
     std::string serialize(int32_t length);
     virtual std::string serialize() = 0;
@@ -15,7 +15,6 @@ public:
 
     MessageType type() const;
     MessageTag tag() const;
-    int32_t index() const;
 
 protected:
     MessageType _type;

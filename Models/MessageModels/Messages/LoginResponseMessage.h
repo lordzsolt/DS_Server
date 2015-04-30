@@ -3,12 +3,12 @@
 
 #include "../Message.h"
 
-class LoginResponseMessage : public Message
-{
-public:
-    LoginResponseMessage(int index, MessageTag const &tag);
+//class LoginResponseMessage : public Message
+//{
+////public:
+////    LoginResponseMessage(int index, MessageTag const &tag);
 
-    ~LoginResponseMessage();
-};
+////    ~LoginResponseMessage();
+//};
 
 #endif // LOGINRESPONSEMESSAGE_H

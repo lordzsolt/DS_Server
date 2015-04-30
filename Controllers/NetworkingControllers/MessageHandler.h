@@ -23,9 +23,9 @@ private:
     Networking* _networking;
     std::unordered_map<int, Group>* _groups;
 
-    void handleLoginMessage(LoginMessage* message);
-    void handlePrivateMessage(PrivateMessage* message);
-    void handleGroupMessage(GroupMessage* message);
+//    void handleLoginMessage(LoginMessage* message);
+//    void handlePrivateMessage(PrivateMessage* message);
+//    void handleGroupMessage(GroupMessage* message);
 
 };
 

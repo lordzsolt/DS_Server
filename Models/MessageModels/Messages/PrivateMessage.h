@@ -6,17 +6,17 @@
 
 enum class MessageTag : int;
 
-class PrivateMessage : public Message {
-public:
+//class PrivateMessage : public Message {
+//public:
 
-    PrivateMessage(int index, MessageTag const &tag, const int recipientId, const std::string &message);
+//    PrivateMessage(int index, MessageTag const &tag, const int recipientId, const std::string &message);
 
-    std::string serialize();
+//    std::string serialize();
 
-    int getRecipientId() const;
-    void setRecipientId(int value);
+//    int getRecipientId() const;
+//    void setRecipientId(int value);
 
-protected:
-    int recipientId;
-    std::string message;
-};
+//protected:
+//    int recipientId;
+//    std::string message;
+//};
