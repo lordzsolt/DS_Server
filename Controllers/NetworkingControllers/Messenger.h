@@ -48,5 +48,5 @@ private:
     mutable std::unordered_map<unsigned int, MessengerCallback> _callbacksByIndex;
 
     Messenger(SOCKET socket);
-    void messageReceived(std::shared_ptr<Message> message);
+    void messageReceived(int32_t index, std::shared_ptr<Message> message);
 };

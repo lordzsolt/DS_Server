@@ -7,7 +7,8 @@
 #include <unordered_map>
 #include <mutex>
 
-using SocketListenerCallback = std::function<void(std::string header, std::string message)>;
+using SocketListenerCallback = std::function<void(int32_t index,
+                                                  std::string header, std::string message)>;
 
 class SocketListener {
 

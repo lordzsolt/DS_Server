@@ -128,6 +128,6 @@ void SocketListener::appendCurrentMessageFromSocket(pair<SOCKET, SocketInfo> soc
 void SocketListener::wholeMessageArrived(pair<SOCKET, SocketInfo> socketDescriptor) {
     socketDescriptor.second.waitingForWholeMessage = false;
 
-    _callback(socketDescriptor.second.header, socketDescriptor.second.body);
+    _callback(0, socketDescriptor.second.header, socketDescriptor.second.body);
     _socketInfo.erase(socketDescriptor.first);
 }

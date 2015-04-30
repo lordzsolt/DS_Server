@@ -9,6 +9,7 @@
 #include "../../Models/MessageModels/Messages/PrivateMessage.h"
 
 #include <iostream>
+#include <sstream>
 
 using namespace std;
 using namespace std::placeholders;
@@ -23,8 +24,8 @@ Messenger::Messenger(string serverAddress, unsigned short port, MessengerCallbac
 
 Messenger::Messenger(SOCKET socket)
     : _sender(socket),
-      _messageReceiver(bind(&Messenger::messageReceived, this, _1)),
-      _messageThread(bind(&MessageReceiver::startReceiving, &_messageReceiver))
+      _messageReceiver(bind(&Messenger::messageReceived, this, _1, _2))
+//      _messageThread(bind(&MessageReceiver::startReceiving, &_messageReceiver))
 {
     std::cout << "Messenger started with socket: " << socket << endl;
 }
@@ -57,11 +58,18 @@ void Messenger::sendMessage(Message* message, SOCKET socket, MessengerCallback c
         _messageIndex = 0;
     }
     MessageSender sender(socket);
-    sender.sendMessage(message->serialize());
+
+    std::string serializedMessage = message->serialize();
+    std::ostringstream stream(std::stringstream::out | std::stringstream::binary);
+    stream.write(reinterpret_cast<char*>(&_messageIndex), sizeof(_messageIndex));
+    std::string serializedIndex = stream.str();
+
+    std::string messageWithIndex = serializedIndex + serializedMessage;
+    sender.sendMessage(messageWithIndex);
 }
 
 
-void Messenger::messageReceived(shared_ptr<Message> message) {
+void Messenger::messageReceived(int32_t index, shared_ptr<Message> message) {
     MessengerCallback callback = _callbacksByIndex[0];
     callback(message);
 }
