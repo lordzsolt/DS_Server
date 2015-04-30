@@ -46,7 +46,8 @@ SOURCES += main.cpp \
     Models/NetworkingModels/Connection.cpp \
     Models/NetworkingModels/ErrorMessage.cpp \
     Models/RecipientModels/Group.cpp \
-    Models/RecipientModels/User.cpp
+    Models/RecipientModels/User.cpp \
+    Models/MessageModels/Messages/FunctionCallMessage.cpp
 
 HEADERS += \
     Constants/ProtocolConstants.h \
@@ -71,4 +72,5 @@ HEADERS += \
     Models/NetworkingModels/ErrorMessage.h \
     Models/RecipientModels/Group.h \
     Models/RecipientModels/Recipient.h \
-    Models/RecipientModels/User.h
+    Models/RecipientModels/User.h \
+    Models/MessageModels/Messages/FunctionCallMessage.h
