@@ -104,7 +104,10 @@ void SocketListener::readNewMessageFromSocket(SOCKET socket) {
         //wprintf(L"recv failed with error: %d\n", WSAGetLastError());
     }
 
-    currentSocketInfo.expectedLength = *reinterpret_cast<const int32_t*>(currentSocketInfo.header.data());
+    auto headerIntPtr = reinterpret_cast<const int32_t*>(currentSocketInfo.header.data());
+
+    currentSocketInfo.index = headerIntPtr[0];
+    currentSocketInfo.expectedLength = headerIntPtr[1];
 
     currentSocketInfo.body.resize(currentSocketInfo.expectedLength);
 

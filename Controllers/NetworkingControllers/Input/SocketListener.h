@@ -25,6 +25,7 @@ private:
 
     class SocketInfo {
     public:
+        int32_t index;
         bool waitingForWholeMessage;
         std::string header;
         std::string body;

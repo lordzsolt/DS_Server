@@ -24,8 +24,8 @@ Messenger::Messenger(string serverAddress, unsigned short port, MessengerCallbac
 
 Messenger::Messenger(SOCKET socket)
     : _sender(socket),
-      _messageReceiver(bind(&Messenger::messageReceived, this, _1, _2))
-//      _messageThread(bind(&MessageReceiver::startReceiving, &_messageReceiver))
+      _messageReceiver(bind(&Messenger::messageReceived, this, _1, _2)),
+      _messageThread(bind(&MessageReceiver::startReceiving, &_messageReceiver))
 {
     std::cout << "Messenger started with socket: " << socket << endl;
 }
