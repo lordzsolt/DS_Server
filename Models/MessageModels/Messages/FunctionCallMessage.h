@@ -4,16 +4,16 @@
 #include <string>
 
 #include "../Message.h"
-
+#include "../../../Constants/ProtocolConstants.h"
 
 class FunctionCallMessage : public Message
 {
 public:
-    FunctionCallMessage(MessageTag const &tag, int function, std::string serializedMessage);
+    FunctionCallMessage(MessageTag const &tag, FunctionType function, std::string serializedMessage);
     ~FunctionCallMessage();
 
 protected:
-    int _function;
+    FunctionType _function;
     std::string _serializedMessage;
 };
 

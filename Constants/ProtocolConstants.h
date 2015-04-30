@@ -27,6 +27,10 @@ enum class MessageTag : int32_t {
     Missing
 };
 
+enum class FunctionType : int32_t {
+    Add
+};
+
 
 extern std::string kMessageDelimiter;
 extern std::string kMessageKeyUsername;

@@ -2,7 +2,7 @@
 
 #include "../../../Constants/ProtocolConstants.h"
 
-FunctionCallMessage::FunctionCallMessage(const MessageTag &tag, int function,
+FunctionCallMessage::FunctionCallMessage(const MessageTag &tag, FunctionType function,
                                          std::string serializedMessage)
     : Message(MessageType::Function_Call, tag),
     _function(function),
