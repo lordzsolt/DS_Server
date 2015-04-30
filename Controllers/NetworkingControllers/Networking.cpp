@@ -4,13 +4,14 @@
 #include <functional>
 
 #include "../../Constants/ProtocolConstants.h"
+#include "../../Models/MessageModels/Messages/FunctionCallMessage.h"
 
-Networking::Networking(NotificationCallback notificationCallback, ConnectionCallback connectionCallback, std::unordered_map<int, Connection>* connections)
-    : Networking(notificationCallback, connectionCallback, connections, initializeWSA()) {
+Networking::Networking(NotificationCallback notificationCallback)
+    : Networking(notificationCallback, initializeWSA()) {
 }
 
-Networking::Networking(NotificationCallback callback,  ConnectionCallback connectionCallback, std::unordered_map<int, Connection>* connections, nullptr_t t)
-    : _messenger(kServerAddress, kServerPort, callback, connectionCallback, connections) {
+Networking::Networking(NotificationCallback callback, nullptr_t t)
+    : _messenger(kServerAddress, kServerPort, callback) {
     std::cout << "Networking started with: " << kServerAddress << ":" << kServerPort << "\n";
 }
 
@@ -113,8 +114,13 @@ void Networking::removeSocket(SOCKET socket)
 ////    _messenger.sendGroupMessage(message, group, lamdaCallback);
 //}
 
-void Networking::functionMessage(std::string serializedMessage, ArithmeticsCallback callback)
-{
 
+void Networking::functionMessage(FunctionType functionType,
+                     std::string serializedMessage, ArithmeticsCallback callback)
+{
+    FunctionCallMessage message(MessageTag::New,
+                                functionType,
+                                serializedMessage);
+    _messenger.sendMessage(&message, 0, nullptr);
 }
 

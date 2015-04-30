@@ -15,3 +15,8 @@ FunctionCallMessage::~FunctionCallMessage()
 
 }
 
+std::string FunctionCallMessage::serialize()
+{
+    return "";
+}
+

@@ -5,6 +5,7 @@
 #include "../../Models/MessageModels/Messages/GroupMessage.h"
 #include "../../Models/MessageModels/Messages/PrivateMessage.h"
 #include "../../Models/RecipientModels/Group.h"
+#include "../../Constants/ProtocolConstants.h"
 
 #include <string>
 #include <unordered_set>
@@ -13,14 +14,12 @@
 
 using NotificationCallback = std::function<void(std::shared_ptr<Message> message)>;
 using NetworkingCallback = std::function<void(bool success)>;
-using ArithmeticsCallback = std::function<void(int result)>;
+using ArithmeticsCallback = std::function<void(std::string serializedResult)>;
 
 class Networking {
 public:
 
-    Networking(NotificationCallback notificationCallback,
-               ConnectionCallback connectionCallback,
-               std::unordered_map<int, Connection>* connections);
+    Networking(NotificationCallback notificationCallback);
 
     void listenToSocket(SOCKET socket);
     void removeSocket(SOCKET socket);
@@ -32,10 +31,12 @@ public:
 //    void privateMessage(PrivateMessage message, NetworkingCallback callback);
 //    void groupMessage(std::string message, std::unordered_set<int> recipientIds, NetworkingCallback callback) const;
 //    void groupMessage(GroupMessage message, Group group, NetworkingCallback callback);
-    void functionMessage(std::string serializedMessage, ArithmeticsCallback callback);
+    void functionMessage(FunctionType functionType,
+                         std::string serializedMessage, ArithmeticsCallback callback);
 
 private:
-    Networking(NotificationCallback callback, ConnectionCallback connectionCallback, std::unordered_map<int, Connection>* connections, nullptr_t t);
+    Networking(NotificationCallback callback,
+               nullptr_t t);
     nullptr_t initializeWSA();
     Messenger _messenger;
 };

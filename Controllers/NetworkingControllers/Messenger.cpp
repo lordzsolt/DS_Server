@@ -14,20 +14,17 @@ using namespace std;
 using namespace std::placeholders;
 
 
-Messenger::Messenger(string serverAddress, unsigned short port, MessengerCallback messengerCallback, ConnectionCallback connectionCallback, std::unordered_map<int, Connection> *connections)
-    : Messenger(connectionCallback, SocketFactory::createServerSocket(serverAddress, port), connections)
+Messenger::Messenger(string serverAddress, unsigned short port, MessengerCallback messengerCallback)
+    : Messenger(SocketFactory::createServerSocket(serverAddress, port))
 {
     _callbacksByIndex.emplace(0, messengerCallback);
 }
 
 
-Messenger::Messenger(ConnectionCallback connectionCallback, SOCKET socket, std::unordered_map<int, Connection>* connections)
+Messenger::Messenger(SOCKET socket)
     : _sender(socket),
       _messageReceiver(bind(&Messenger::messageReceived, this, _1)),
-      _messageThread(bind(&MessageReceiver::startReceiving, &_messageReceiver)),
-      _connectionReceiver(socket, connectionCallback),
-      _connectionThread(bind(&ConnectionReceiver::startAcceptingConnections, &_connectionReceiver)),
-      _connections(connections)
+      _messageThread(bind(&MessageReceiver::startReceiving, &_messageReceiver))
 {
     std::cout << "Messenger started with socket: " << socket << endl;
 }
@@ -36,8 +33,6 @@ Messenger::Messenger(ConnectionCallback connectionCallback, SOCKET socket, std::
 Messenger::~Messenger() {
     _messageReceiver.stopReceiving();
     _messageThread.join();
-    _connectionReceiver.stopAcceptingConnections();
-    _connectionThread.join();
 }
 
 

@@ -8,9 +8,7 @@
 using namespace std::placeholders;
 
 ApplicationController::ApplicationController()
-    : _networking(bind(&ApplicationController::messageReceived, this, _1),
-                  bind(&ApplicationController::connectionReceived, this, _1),
-                  &_connections),
+    : _networking(bind(&ApplicationController::messageReceived, this, _1)),
       _messageHandler(&_networking,
                       &_groups)
 {

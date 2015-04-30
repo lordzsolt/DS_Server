@@ -21,15 +21,12 @@
 #include <memory>
 
 using MessengerCallback = std::function<void(std::shared_ptr<Message>)>;
-using ConnectionCallback = std::function<void(SOCKET socket)>;
 
 class Messenger {
 public:
     Messenger(std::string serverAddress,
               unsigned short port,
-              MessengerCallback messengerCallback,
-              ConnectionCallback connectionCallback,
-              std::unordered_map<int, Connection>* connections);
+              MessengerCallback messengerCallback);
 
     virtual ~Messenger();
 
@@ -39,12 +36,9 @@ public:
     void sendMessage(Message* message, SOCKET socket, MessengerCallback callback) const;
 
 private:
-    std::unordered_map<int, Connection>* _connections;
     MessageSender _sender;
     MessageReceiver _messageReceiver;
-    ConnectionReceiver _connectionReceiver;
     std::thread _messageThread;
-    std::thread _connectionThread;
     mutable unsigned int _messageIndex = 1;
 
     /**
@@ -53,6 +47,6 @@ private:
      */
     mutable std::unordered_map<unsigned int, MessengerCallback> _callbacksByIndex;
 
-    Messenger(ConnectionCallback connectionCallback, SOCKET socket, std::unordered_map<int, Connection> *_connections);
+    Messenger(SOCKET socket);
     void messageReceived(std::shared_ptr<Message> message);
 };

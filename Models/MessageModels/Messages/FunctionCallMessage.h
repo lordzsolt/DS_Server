@@ -12,6 +12,8 @@ public:
     FunctionCallMessage(MessageTag const &tag, FunctionType function, std::string serializedMessage);
     ~FunctionCallMessage();
 
+    std::string serialize();
+
 protected:
     FunctionType _function;
     std::string _serializedMessage;
