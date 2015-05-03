@@ -16,8 +16,7 @@ Networking::Networking(NotificationCallback notificationCallback)
 
 Networking::Networking(NotificationCallback callback, nullptr_t t)
     : _messenger(kServerAddress, kServerPort, callback,
-                 bind(&Networking::connectionReceived, this, _1),
-                 true)
+                 bind(&Networking::connectionReceived, this, _1))
 {
     std::cout << "Networking started with: " << kServerAddress << ":" << kServerPort << "\n";
 }

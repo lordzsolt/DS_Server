@@ -9,7 +9,7 @@ using ConnectionCallback = std::function<void(SOCKET socket)>;
 class ConnectionReceiver
 {
 public:
-    ConnectionReceiver(SOCKET socket, ConnectionCallback callback, bool startAccepting);
+    ConnectionReceiver(SOCKET socket, ConnectionCallback callback);
     ~ConnectionReceiver();
 
     void startAcceptingConnections();

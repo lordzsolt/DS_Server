@@ -1,12 +1,9 @@
 #include "ConnectionReceiver.h"
 
-ConnectionReceiver::ConnectionReceiver(SOCKET socket, ConnectionCallback callback, bool startAccepting)
+ConnectionReceiver::ConnectionReceiver(SOCKET socket, ConnectionCallback callback)
     : _socket(socket),
       _callback(callback)
 {
-    if (startAccepting) {
-        startAcceptingConnections();
-    }
 }
 
 ConnectionReceiver::~ConnectionReceiver()
