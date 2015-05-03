@@ -6,12 +6,19 @@
 #include "../../Constants/ProtocolConstants.h"
 #include "../../Models/MessageModels/Messages/FunctionCallMessage.h"
 
+using namespace std::placeholders;
+
 Networking::Networking(NotificationCallback notificationCallback)
     : Networking(notificationCallback, initializeWSA()) {
 }
 
+//_messageReceiver(bind(&Messenger::messageReceived, this, _1, _2)),
+
 Networking::Networking(NotificationCallback callback, nullptr_t t)
-    : _messenger(kServerAddress, kServerPort, callback) {
+    : _messenger(kServerAddress, kServerPort, callback,
+                 bind(&Networking::connectionReceived, this, _1),
+                 true)
+{
     std::cout << "Networking started with: " << kServerAddress << ":" << kServerPort << "\n";
 }
 
@@ -27,100 +34,40 @@ nullptr_t Networking::initializeWSA() {
     return nullptr;
 }
 
+void Networking::connectionReceived(SOCKET socket)
+{
+    listenToSocket(socket);
+}
+
 
 void Networking::listenToSocket(SOCKET socket)
 {
     _messenger.listenToSocket(socket);
 }
 
+
 void Networking::removeSocket(SOCKET socket)
 {
     _messenger.removeSocket(socket);
 }
 
-//void Networking::login(std::string username, std::string password, NetworkingCallback callback) const {
-////    MessengerCallback lamdaCallback = [callback] (std::shared_ptr<Message> message) {
-////        if (callback) {
-////            callback(true);
-////        }
-////        else {
-////            std::cerr << "No callback provided";
-////        }
-////    };
-////    _messenger.sendLogin(username, password, lamdaCallback);
-//}
-
-//void Networking::loginResponse(std::string username, int userId, NetworkingCallback callback) const
-//{
-////    MessengerCallback lamdaCallback = [callback] (std::shared_ptr<Message> message) {
-////        if (callback) {
-////            callback(true);
-////        }
-////        else {
-////            std::cerr << "No callback provided";
-////        }
-////    };
-////    _messenger.sendLoginResponse(username, userId, lamdaCallback);
-//}
-
-
-//void Networking::signup(std::string username, std::string password, NetworkingCallback callback) const {
-
-//}
-
-
-//void Networking::privateMessage(std::string message, std::unordered_set<int> recipientIds, NetworkingCallback callback) const {
-////    MessengerCallback lamdaCallback = [callback] (std::shared_ptr<Message> message) {
-////        if (callback) {
-////            callback(true);
-////        }
-////        else {
-////            std::cerr << "No callback provided";
-////        }
-////    };
-////    _messenger.sendPrivateMessage(message, *recipientIds.begin(), lamdaCallback);
-//}
-
-//void Networking::privateMessage(PrivateMessage message, NetworkingCallback callback)
-//{
-////    _messenger.sendPrivateMessage(message, nullptr);
-//}
-
-
-//void Networking::groupMessage(std::string message, std::unordered_set<int> recipientIds, NetworkingCallback callback) const {
-////    MessengerCallback lamdaCallback = [callback] (std::shared_ptr<Message> message) {
-////        if (callback) {
-////            callback(true);
-////        }
-////        else {
-////            std::cerr << "No callback provided";
-////        }
-////    };
-////    _messenger.sendGroupMessage(message, recipientIds, lamdaCallback);
-//}
-
-
-//void Networking::groupMessage(GroupMessage message, Group group, NetworkingCallback callback)
-//{
-////    MessengerCallback lamdaCallback = [callback] (std::shared_ptr<Message> message) {
-////        if (callback) {
-////            callback(true);
-////        }
-////        else {
-////            std::cerr << "No callback provided";
-////        }
-////    };
-
-////    _messenger.sendGroupMessage(message, group, lamdaCallback);
-//}
-
 
 void Networking::functionMessage(FunctionType functionType,
-                     std::string serializedMessage, ArithmeticsCallback callback)
+                     std::string serializedMessage, ArithmeticsCallback callback) const
 {
     FunctionCallMessage message(MessageTag::New,
                                 functionType,
                                 serializedMessage);
-    _messenger.sendMessage(&message, 0, nullptr);
+
+    MessengerCallback lamdaCallback = [callback] (std::shared_ptr<Message> message) {
+        if (callback) {
+            callback("1");
+        }
+        else {
+            std::cerr << "No callback provided";
+        }
+    };
+
+    _messenger.sendMessage(&message, 0, lamdaCallback);
 }
 

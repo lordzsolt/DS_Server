@@ -26,7 +26,9 @@ class Messenger {
 public:
     Messenger(std::string serverAddress,
               unsigned short port,
-              MessengerCallback messengerCallback);
+              MessengerCallback messengerCallback,
+              ConnectionCallback connectionCallback,
+              bool autoAcceptConnections);
 
     virtual ~Messenger();
 
@@ -38,7 +40,9 @@ public:
 private:
     MessageSender _sender;
     MessageReceiver _messageReceiver;
+    ConnectionReceiver _connectionReceiver;
     std::thread _messageThread;
+    std::thread _connectionThread;
     mutable unsigned int _messageIndex = 1;
 
     /**
@@ -47,6 +51,6 @@ private:
      */
     mutable std::unordered_map<unsigned int, MessengerCallback> _callbacksByIndex;
 
-    Messenger(SOCKET socket);
+    Messenger(SOCKET socket, ConnectionCallback connectionCallback, bool autoAcceptConnections);
     void messageReceived(int32_t index, std::shared_ptr<Message> message);
 };

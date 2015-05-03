@@ -15,17 +15,19 @@ using namespace std;
 using namespace std::placeholders;
 
 
-Messenger::Messenger(string serverAddress, unsigned short port, MessengerCallback messengerCallback)
-    : Messenger(SocketFactory::createServerSocket(serverAddress, port))
+Messenger::Messenger(string serverAddress, unsigned short port, MessengerCallback messengerCallback, ConnectionCallback connectionCallback, bool autoAcceptConnections)
+    : Messenger(SocketFactory::createServerSocket(serverAddress, port), connectionCallback, autoAcceptConnections)
 {
     _callbacksByIndex.emplace(0, messengerCallback);
 }
 
 
-Messenger::Messenger(SOCKET socket)
+Messenger::Messenger(SOCKET socket, ConnectionCallback connectionCallback, bool autoAcceptConnections)
     : _sender(socket),
       _messageReceiver(bind(&Messenger::messageReceived, this, _1, _2)),
-      _messageThread(bind(&MessageReceiver::startReceiving, &_messageReceiver))
+      _messageThread(bind(&MessageReceiver::startReceiving, &_messageReceiver)),
+      _connectionReceiver(socket, connectionCallback, autoAcceptConnections),
+      _connectionThread(bind(&ConnectionReceiver::startAcceptingConnections, &_connectionReceiver))
 {
     std::cout << "Messenger started with socket: " << socket << endl;
 }

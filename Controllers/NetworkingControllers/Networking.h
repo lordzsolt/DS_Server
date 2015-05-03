@@ -32,11 +32,14 @@ public:
 //    void groupMessage(std::string message, std::unordered_set<int> recipientIds, NetworkingCallback callback) const;
 //    void groupMessage(GroupMessage message, Group group, NetworkingCallback callback);
     void functionMessage(FunctionType functionType,
-                         std::string serializedMessage, ArithmeticsCallback callback);
+                         std::string serializedMessage, ArithmeticsCallback callback) const;
 
 private:
+    Messenger _messenger;
+
     Networking(NotificationCallback callback,
                nullptr_t t);
     nullptr_t initializeWSA();
-    Messenger _messenger;
+    void connectionReceived(SOCKET socket);
+
 };

@@ -42,6 +42,7 @@ shared_ptr<Message> MessageDeserializer::deserializeMessage(std::string header, 
             break;
         }
         default: {
+            return nullptr;
             std::cout << "Unknown message type: " << (int)messageType;
             //TODO: Throw an exception
         }

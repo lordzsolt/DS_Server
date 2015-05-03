@@ -4,12 +4,12 @@
 #include <functional>
 #include <WinSock2.h>
 
-using ConnectionReceiverCallback = std::function<void(SOCKET socket)>;
+using ConnectionCallback = std::function<void(SOCKET socket)>;
 
 class ConnectionReceiver
 {
 public:
-    ConnectionReceiver(SOCKET socket, ConnectionReceiverCallback callback);
+    ConnectionReceiver(SOCKET socket, ConnectionCallback callback, bool startAccepting);
     ~ConnectionReceiver();
 
     void startAcceptingConnections();
@@ -17,7 +17,7 @@ public:
 
 private:
     SOCKET _socket;
-    ConnectionReceiverCallback _callback;
+    ConnectionCallback _callback;
 
     bool _shouldAcceptConnections;
     void awaitConnections();
