@@ -18,6 +18,5 @@ public:
 
 protected:
     MessageType _type;
-    int32_t _index;
     MessageTag _tag;
 };

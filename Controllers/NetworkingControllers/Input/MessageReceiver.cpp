@@ -5,8 +5,13 @@
 using namespace std;
 using namespace std::placeholders;
 
+//TODO: Refactor Listener.headerLength to more easily understand why it's
+//Message::headerLength() + sizeof(int32_t))
+//Currently it's because Messenger adds an index (sizeof(int32_t)) infront of
+//the actual message.
 MessageReceiver::MessageReceiver(MessageReceiverCallback callback)
-        : _listener(bind(&MessageReceiver::messageReceived, this, _1, _2, _3), Message::headerLength()),
+        : _listener(bind(&MessageReceiver::messageReceived, this, _1, _2, _3),
+                    Message::headerLength() + sizeof(int32_t)),
           _callback(callback)
 {
 }

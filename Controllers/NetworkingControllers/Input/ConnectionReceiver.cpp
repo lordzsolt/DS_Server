@@ -30,6 +30,9 @@ void ConnectionReceiver::awaitConnections()
             std::cout << "Connection received: " << acceptedSocket;
             _callback(acceptedSocket);
         }
+        else {
+            std::cout << "Connection failed with error: " << WSAGetLastError();
+        }
         awaitConnections();
     }
 }

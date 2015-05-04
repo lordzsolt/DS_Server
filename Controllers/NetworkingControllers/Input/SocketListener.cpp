@@ -89,10 +89,10 @@ void SocketListener::readSocket(SOCKET socket) {
         //This is a new message
         readNewMessageFromSocket(socket);
     }
-    else {
-        //This is the other half of the previous message (stored in _body)
-        appendCurrentMessageFromSocket(*socketDescriptor);
-    }
+//    else {
+//        //This is the other half of the previous message (stored in _body)
+//        appendCurrentMessageFromSocket(*socketDescriptor);
+//    }
 }
 
 
@@ -104,6 +104,7 @@ void SocketListener::readNewMessageFromSocket(SOCKET socket) {
         //wprintf(L"recv failed with error: %d\n", WSAGetLastError());
     }
 
+    std::cerr << "Message was read: " << currentSocketInfo.header;
     auto headerIntPtr = reinterpret_cast<const int32_t*>(currentSocketInfo.header.data());
 
     currentSocketInfo.index = headerIntPtr[0];
@@ -120,7 +121,7 @@ void SocketListener::appendCurrentMessageFromSocket(pair<SOCKET, SocketInfo> soc
     int iResult = recv(socketDescriptor.first, &socketDescriptor.second.body[0],
             socketDescriptor.second.expectedLength, MSG_WAITALL);
     if (iResult == SOCKET_ERROR) {
-        //wprintf(L"recv failed with error: %d\n", WSAGetLastError());
+        std::cerr << "recv failed with error: " << WSAGetLastError() << "\n";
     }
     else {
         wholeMessageArrived(socketDescriptor);
@@ -131,6 +132,10 @@ void SocketListener::appendCurrentMessageFromSocket(pair<SOCKET, SocketInfo> soc
 void SocketListener::wholeMessageArrived(pair<SOCKET, SocketInfo> socketDescriptor) {
     socketDescriptor.second.waitingForWholeMessage = false;
 
-    _callback(0, socketDescriptor.second.header, socketDescriptor.second.body);
+    auto headerIntPtr = reinterpret_cast<const int32_t*>(socketDescriptor.second.header.data());
+
+    int index = headerIntPtr[0];
+
+    _callback(index, socketDescriptor.second.header, socketDescriptor.second.body);
     _socketInfo.erase(socketDescriptor.first);
 }
