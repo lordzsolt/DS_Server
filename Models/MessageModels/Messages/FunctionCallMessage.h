@@ -10,12 +10,13 @@ class FunctionCallMessage : public Message
 {
 public:
     FunctionCallMessage(MessageTag const &tag, FunctionType function, std::string serializedMessage);
+    FunctionCallMessage(MessageTag const &tag, std::string body);
     ~FunctionCallMessage();
 
     std::string serialize();
 
 protected:
-    FunctionType _function;
+    FunctionType _functionType;
     std::string _serializedMessage;
 };
 

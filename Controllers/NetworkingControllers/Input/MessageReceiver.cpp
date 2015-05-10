@@ -14,6 +14,7 @@ MessageReceiver::MessageReceiver(MessageReceiverCallback callback)
                     Message::headerLength() + sizeof(int32_t)),
           _callback(callback)
 {
+
 }
 
 void MessageReceiver::startReceiving() {

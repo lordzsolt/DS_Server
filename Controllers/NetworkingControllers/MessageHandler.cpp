@@ -31,11 +31,10 @@ void MessageHandler::handleMessage(Message *message)
 //        handleGroupMessage(groupMessage);
         break;
     }
-//    case MessageType::SumMessage: {
-//        SumMessage* sumMessage = dynamic_cast<SumMessage*>(message);
-//        handleSumMessage(sumMessage);
-//        break;
-//    }
+    case MessageType::Function_Call: {
+        std::cerr << "Function call arrived";
+        break;
+    }
     }
 }
 

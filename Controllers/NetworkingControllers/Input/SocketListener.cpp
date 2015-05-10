@@ -89,10 +89,10 @@ void SocketListener::readSocket(SOCKET socket) {
         //This is a new message
         readNewMessageFromSocket(socket);
     }
-//    else {
-//        //This is the other half of the previous message (stored in _body)
-//        appendCurrentMessageFromSocket(*socketDescriptor);
-//    }
+    else {
+        //This is the other half of the previous message (stored in _body)
+        appendCurrentMessageFromSocket(*socketDescriptor);
+    }
 }
 
 

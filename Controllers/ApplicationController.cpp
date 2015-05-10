@@ -31,7 +31,6 @@ void ApplicationController::messageReceived(std::shared_ptr<Message> message)
 {
     std::cout << "Message Type: " << static_cast<int32_t>(message->type()) << std::endl;
     _messageHandler.handleMessage(message.get());
-
 }
 
 

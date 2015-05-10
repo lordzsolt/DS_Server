@@ -1,6 +1,7 @@
 #include "MessageDeserializer.h"
 
 #include "../../../Constants/ProtocolConstants.h"
+#include "../Messages/FunctionCallMessage.h"
 #include "../Messages/LoginMessage.h"
 
 using namespace std;
@@ -28,17 +29,8 @@ shared_ptr<Message> MessageDeserializer::deserializeMessage(std::string header, 
             break;
         }
         case MessageType::Function_Call: {
-//            ValueType type = *reinterpret_cast<const ValueType*>(body.data());
-
-//            if (type == ValueType::Bool) {
-//                SumMessage<bool> message(index, body);
-//                return make_shared<SumMessage<bool>>(message);
-//            }
-//            if (type == ValueType::Int) {
-//                SumMessage<int> message(index, body);
-//                return make_shared<SumMessage<int>>(message);
-//            }
-            break;
+            FunctionCallMessage message(static_cast<MessageTag>(tag), body);
+            return make_shared<FunctionCallMessage>(message);
         }
         default: {
             return nullptr;
